@@ -1,62 +1,69 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-
-from google.colab import files
-uploaded = files.upload()
-
-# Read the Excel file
-file_path = "Analysis_sample_fixed.xlsx"
-sheet_name = 'in'          # Replace with sheet name
 
 # Load the data into a pandas DataFrame
-data = pd.read_excel(file_path, sheet_name=sheet_name)
+data = pd.read_csv("Analysis_sample_fixed.csv")
 
 # Display the first few rows of the DataFrame
 print(data.head())
 
-col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, \
-col11, col12, col13, col14, col15, col16, col17, col18, col19, \
-col20, col21, col22, col23, col24, col25, col26, col27, col28 = data.columns
+# Check and display column names
+print(data.columns)
+
+# Extract relevant columns using column names
+BounceX = data.columns[6]  # Check if this is the correct index for BounceX
+BounceY = data.columns[7]   # Check if this is the correct index for BounceY
+StumpsZ = data.columns[9]   # Check if this is the correct index for StumpsZ
+BowlerReleaseZPosition = data.columns[24]  # Check if this is the correct index for BowlerReleaseZPosition
+
+# 1st plot: Scatter plot for bounce positions
+plt.figure(figsize=(10, 6))
+plt.scatter(data[BounceX], data[BounceY], label='Bounce Position', alpha=0.6)
+plt.title("Ball Bounce Position")
+plt.xlabel("X Position (m)")
+plt.ylabel("Y Position (m)")
+plt.grid()
+plt.legend()
+plt.show()  # Show the first plot
+
+# 2nd plot: Trajectory data
+plt.figure(figsize=(10, 6))
+for index, row in data.iterrows():
+    points_x = [20.12, row[BounceX], 0]
+    points_z = [row[BowlerReleaseZPosition], 0, row[StumpsZ]]
+    plt.plot(points_x, points_z, marker='o', alpha=0.3)
+
+plt.title("Bowler Trajectory")
+plt.xlabel("X Position (m)")
+plt.ylabel("Z Position (m)")
+plt.grid()
+plt.show()  # Show the second plot
 
 #OverNumber = data[col1]
 #BallNumber = data[col2]
 #BowlerName = data [col3]
 #BatsmanName = data [col4]
 #BatsmanHand = data [col5]
-BowlerReleaseSpeed = data [col6]
-BounceX = data [col7]
-BounceY = data [col8]
-StumpsY = data [col9]
-StumpsZ = data [col10]
-Swing = data [col11]
-Deviation = data [col12]
+#BowlerReleaseSpeed = data [col6]
+#BounceX = data [col7]
+#BounceY = data [col8]
+#StumpsY = data [col9]
+#StumpsZ = data [col10]
+#Swing = data [col11]
+#Deviation = data [col12]
 #RunsScored = data [col13]
 #ShotLandingX = data [col14]
 #ShotLandingY = data [col15]
 #TrajectoryTime = data [col16]
 #TrajectoryDate = data [col17]
-BounceVelocity = data [col18]
-OutOfBounceAngle = data [col19]
-DropAngle = data [col20]
-AngleLeavingBowlersHand = data [col21]
+#BounceVelocity = data [col18]
+#OutOfBounceAngle = data [col19]
+#DropAngle = data [col20]
+#AngleLeavingBowlersHand = data [col21]
 #ShotPlayed = data [col22]
 #ShotType = data [col23]
-BowlerReleaseYPosition = data [col24]
-BowlerReleaseZPosition = data [col25]
-AccelerationY = data [col26]
-AccelerationZ = data [col27]
-var28 = data [col28]
-
-
-print(BowlerReleaseSpeed)
-
-plt.figure(figsize=(10, 6))
-plt.title = "Ball Bounce Position"
-plt.xlabel("X Position (m)")
-plt.ylabel("Y Position (m)")
-
-plt.scatter(BounceX, BounceY, label='Bounce Position')  # Adjusted plot command
-plt.legend()
-plt.grid()
-plt.show()
+#BowlerReleaseYPosition = data [col24]
+#BowlerReleaseZPosition = data [col25]
+#AccelerationY = data [col26]
+#AccelerationZ = data [col27]
+#var28 = data [col28]
